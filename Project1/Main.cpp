@@ -57,8 +57,37 @@ void SetBook(Book& book, string title, string author, PurchaseStatus ps, Reading
 	book.readingStatus = rs;
 }
 
-void DisplayBook(Book book)
 
+void DisplayBook(Book book)
+{
+	cout << book.title << "\n by " << book.author << "\ Purchase: " << PurchaseStatusString(book.purchaseStatus) << "\t Reading: " << ReadingStatusString(book.readingStatus) << endl;
+
+}
+
+
+
+int main()
+{
+	Book bookA, bookB, bookC, bookD, bookE, bookF;
+
+	// Testing all permutations of purchase/reading status
+	SetBook(bookA, "Harry Potter and the Sorcerer's Stone", "J K Rowling", OWNED, FINISHED);
+	SetBook(bookB, "Who cooked the last supper?", "Rosalind Miles", OWNED, READING);
+	SetBook(bookC, "Marvirinstrato", "Tim Westover", OWNED, NOT_STARTED);
+
+	SetBook(bookD, "Masters of Doom", "David Kushner", WISHLIST, FINISHED);
+	SetBook(bookE, "Earthsong", "Suzette Haden Elgin", WISHLIST, READING);
+	SetBook(bookF, "Invent to Learn", "Martinez, Stager", WISHLIST, NOT_STARTED);
+
+	DisplayBook(bookA);
+	DisplayBook(bookB);
+	DisplayBook(bookC);
+	DisplayBook(bookD);
+	DisplayBook(bookE);
+	DisplayBook(bookF);
+
+	return 0;
+}
 
 
 int main()
