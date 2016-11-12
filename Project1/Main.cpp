@@ -64,33 +64,104 @@ void DisplayBook(Book book)
 
 }
 
-
-
-int main()
+int GetValidInput(int min, int max)
 {
-	Book bookA, bookB, bookC, bookD, bookE, bookF;
+	int choice;
+	cout << ">> " << endl;
+	cin >> choice;
 
-	// Testing all permutations of purchase/reading status
-	SetBook(bookA, "Harry Potter and the Sorcerer's Stone", "J K Rowling", OWNED, FINISHED);
-	SetBook(bookB, "Who cooked the last supper?", "Rosalind Miles", OWNED, READING);
-	SetBook(bookC, "Marvirinstrato", "Tim Westover", OWNED, NOT_STARTED);
+		while (choice < min || choice > max)
+		{
+			cout << "Invalid input! " << endl;
+			cin >> choice;
+		}
+		cin.ignore();
+		return choice;
+}
 
-	SetBook(bookD, "Masters of Doom", "David Kushner", WISHLIST, FINISHED);
-	SetBook(bookE, "Earthsong", "Suzette Haden Elgin", WISHLIST, READING);
-	SetBook(bookF, "Invent to Learn", "Martinez, Stager", WISHLIST, NOT_STARTED);
+void AddbookMenu(Book books[100], int& bookCount)
+{
+	string title;
+	string author;
+	int ps;
+	int rs;
+	cout << "Please enter the title of the book >>" << endl;
+	getline(cin, title);
+	cout << "Please enter the Author >>" << endl;
+	getline(cin, author);
 
-	DisplayBook(bookA);
-	DisplayBook(bookB);
-	DisplayBook(bookC);
-	DisplayBook(bookD);
-	DisplayBook(bookE);
-	DisplayBook(bookF);
+	cout << "Purchase status: 0 = Owned, 1 = Wishlist " << endl;
+	ps = GetValidInput(OWNED, WISHLIST);
+	cout << "Reading status: 0 = not started, 1 = reading, 2 = finished " << endl; 
+	rs = GetValidInput(NOT_STARTED, READING, FINISHED);
+	books[bookCount].purchaseStatus = (PurchaseStatus)ps;
+	books[bookCount].readingStatus = (ReadingStatus)rs;
+	books[bookCount].title = title;
+	books[bookCount].author = author;
+	bookCount++;
 
-	return 0;
+	SetBook(books[bookCount], title, author, (PurchaseStatus)ps, (ReadingStatus)rs);
+}
+
+void DisplayBookList(Book books[100], int bookCount)
+{
+	for (int i = 0; i < bookCount; i++)
+	{
+		cout << i << endl;
+		DisplayBook(books[i]);
+		
+	}
+}
+
+void UpdateBookMenu(Book books[100], int& bookCount)
+{
+	DisplayBookList;
+	cout << "What would you like to update? " << endl;
+	int index;
+	index = GetValidInput(0, bookCount);
+	string title = books[index].title;
+	string author = books[index].author;
+	PurchaseStatus ps = books[index].purchaseStatus;
+	ReadingStatus rs = books[index].readingStatus;
+	cout << "1. Update title" << endl;
+	cout << "2. Update author" << endl;
+	cout << "3. Update purchase status" << endl;
+	cout << "4. Update reading status" << endl;
+	int choice;
+	choice = GetValidInput(1, 4)
+
+	if (choice == 1)
+	{
+		cout << "What is the new title?" << endl;
+		getline(cin, title);
+	}
+	else if (choice == 2)
+	{
+		cout << "What is the name of the author?" << endl;
+		getline(cin, author);
+	}
+	else if (choice == 3)
+	{
+		cout << "What is the purchase Status?" << endl;
+		
+	}
+	else if (choice == 4)
+	{
+
+	}
+	else
+	{
+		cout << "Invalid choice!" << endl;
+	}
 }
 
 
+
+
 int main()
 {
+	Book books[100];
+	int bookCount = 0;
 
+	return 0;
 }
