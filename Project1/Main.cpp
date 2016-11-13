@@ -41,11 +41,11 @@ string PurchaseStatusString(PurchaseStatus ps)
 	}
 	else if (ps == WISHLIST)
 	{
-		return "Wishlist"
+		return "Wishlist";
 	}
 	else
 	{
-		return "?"
+		return "?";
 	}
 }
 
@@ -60,14 +60,14 @@ void SetBook(Book& book, string title, string author, PurchaseStatus ps, Reading
 
 void DisplayBook(Book book)
 {
-	cout << book.title << "\n by " << book.author << "\ Purchase: " << PurchaseStatusString(book.purchaseStatus) << "\t Reading: " << ReadingStatusString(book.readingStatus) << endl;
+cout << book.title << "\n by " << book.author << "\t Purchase: " << PurchaseStatusString(book.purchaseStatus) << "\t Reading: " << ReadingStatusString(book.readingStatus) << endl;
 
 }
 
 int GetValidInput(int min, int max)
 {
 	int choice;
-	cout << ">> " << endl;
+	cout << " >> " << endl;
 	cin >> choice;
 
 		while (choice < min || choice > max)
@@ -93,7 +93,7 @@ void AddbookMenu(Book books[100], int& bookCount)
 	cout << "Purchase status: 0 = Owned, 1 = Wishlist " << endl;
 	ps = GetValidInput(OWNED, WISHLIST);
 	cout << "Reading status: 0 = not started, 1 = reading, 2 = finished " << endl; 
-	rs = GetValidInput(NOT_STARTED, READING, FINISHED);
+	rs = GetValidInput(NOT_STARTED, FINISHED);
 	books[bookCount].purchaseStatus = (PurchaseStatus)ps;
 	books[bookCount].readingStatus = (ReadingStatus)rs;
 	books[bookCount].title = title;
@@ -115,7 +115,7 @@ void DisplayBookList(Book books[100], int bookCount)
 
 void UpdateBookMenu(Book books[100], int& bookCount)
 {
-	DisplayBookList;
+	DisplayBookList(books, bookCount);
 	cout << "What would you like to update? " << endl;
 	int index;
 	index = GetValidInput(0, bookCount);
@@ -128,8 +128,8 @@ void UpdateBookMenu(Book books[100], int& bookCount)
 	cout << "3. Update purchase status" << endl;
 	cout << "4. Update reading status" << endl;
 	int choice;
-	choice = GetValidInput(1, 4)
-
+	choice = GetValidInput(1, 4);
+	
 	if (choice == 1)
 	{
 		cout << "What is the new title?" << endl;
@@ -143,11 +143,19 @@ void UpdateBookMenu(Book books[100], int& bookCount)
 	else if (choice == 3)
 	{
 		cout << "What is the purchase Status?" << endl;
-		
+		cout << OWNED << "or" << PurchaseStatusString(OWNED) << endl;
+		cout << WISHLIST << " " << PurchaseStatusString(WISHLIST) << endl;
+
+		SetBook(books[index], title, author, (PurchaseStatus)ps, (ReadingStatus)rs);
 	}
 	else if (choice == 4)
 	{
+		cout << "What is the reading status?" << endl;
+		cout << NOT_STARTED << " " << ReadingStatusString(NOT_STARTED) << endl;
+		cout << READING << " " << ReadingStatusString(READING) << endl;
+		cout << FINISHED << " " << ReadingStatusString(FINISHED) << endl;
 
+		SetBook(books[index], title, author, (PurchaseStatus)ps, (ReadingStatus)rs);
 	}
 	else
 	{
@@ -156,12 +164,53 @@ void UpdateBookMenu(Book books[100], int& bookCount)
 }
 
 
+void mainMenu(Book books[100], int& bookCount)
+
+{
+	cout << "1. Add book" << "\n 2. Update book" << "\n 3. Display book list" << "\n 4. Quit" << endl;
+	int choice;
+	choice = GetValidInput(1, 4);
+	bool done = false;
+
+	while (done != true && choice < 4)
+	{
+		if (choice == 1)
+		{
+			AddbookMenu(books,bookCount);
+		}
+
+		else if (choice == 2)
+		{
+			UpdateBookMenu(books, bookCount);
+		}
+		else if (choice == 3)
+		{
+			DisplayBookList(books, bookCount);
+		}
+		else if (choice == 4)
+		{
+			done = true;
+		}
+	}
+}
+
+
+
 
 
 int main()
 {
 	Book books[100];
 	int bookCount = 0;
+	Book bookA, bookB, bookC, bookD, bookE, bookF;
+	
 
+	DisplayBook(bookA);
+	DisplayBook(bookB);
+	DisplayBook(bookC);
+	DisplayBook(bookD);
+	DisplayBook(bookE);
+	DisplayBook(bookF);
+	UpdateBookMenu;
 	return 0;
 }
